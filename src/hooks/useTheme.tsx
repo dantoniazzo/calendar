@@ -13,10 +13,24 @@ export const useTheme = create<ThemeStore>()(
       toggle: () =>
         set((state) => {
           const newIsDark = !state.isDark;
+          const editor = document.querySelector('[title="Editor"]') as HTMLIFrameElement;
+          
           if (newIsDark) {
             document.documentElement.classList.add('dark');
+            if (editor) {
+              editor.contentWindow?.postMessage({ 
+                type: 'SET_THEME', 
+                theme: 'dark' 
+              }, '*')
+            }
           } else {
             document.documentElement.classList.remove('dark');
+            if (editor) {
+              editor.contentWindow?.postMessage({ 
+                type: 'SET_THEME', 
+                theme: 'light' 
+              }, '*')
+            }
           }
           return { isDark: newIsDark };
         }),

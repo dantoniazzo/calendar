@@ -1,18 +1,30 @@
-import React from 'react';
+import { useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, parse } from 'date-fns';
 import { ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { useTheme } from '../hooks/useTheme';
 
 export function EditorPage() {
   const { date } = useParams<{ date: string }>();
   const navigate = useNavigate();
+  const editorRef = useRef<HTMLIFrameElement>(null);
+  const { isDark } = useTheme();
   
   const parsedDate = date ? parse(date, 'yyyy-MM-dd', new Date()) : new Date();
   const formattedDate = format(parsedDate, 'MMMM d, yyyy');
   
   const handleBack = () => {
     navigate('/');
+  };
+
+  const handleIframeLoad = () => {
+    if (editorRef.current) {
+      editorRef.current.contentWindow?.postMessage({
+        type: 'SET_THEME',
+        theme: isDark ? 'dark' : 'light'
+      }, '*');
+    }
   };
 
   return (
@@ -36,9 +48,11 @@ export function EditorPage() {
         
         <div className="flex-1">
           <iframe
+            ref={editorRef}
             src="https://simple-editor-gamma.vercel.app"
             className="w-full h-full border-0"
             title="Editor"
+            onLoad={handleIframeLoad}
           />
         </div>
       </div>
