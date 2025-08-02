@@ -56,7 +56,7 @@ export function EditorPage() {
         <div className="flex-1">
           <iframe
             ref={editorRef}
-            src={`http://localhost:8080/${params.id}-${viewer?.id}`} /* "https://simple-editor-gamma.vercel.app" */
+            src={`https://simple-editor-gamma.vercel.app/${params.id}-${viewer?.id}`}
             className="w-full h-full border-0"
             title="Editor"
             onLoad={handleIframeLoad}
