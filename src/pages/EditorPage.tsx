@@ -10,7 +10,6 @@ export function EditorPage() {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { viewer } = useViewer();
-  console.log("Viewer:", viewer);
   const editorRef = useRef<HTMLIFrameElement>(null);
   const { isDark } = useTheme();
   const parsedDate = params.id
