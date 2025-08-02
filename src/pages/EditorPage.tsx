@@ -1,29 +1,32 @@
-import { useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { format, parse } from 'date-fns';
-import { ArrowLeft } from 'lucide-react';
-import { ThemeToggle } from '../components/ThemeToggle';
-import { useTheme } from '../hooks/useTheme';
+import { useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { format, parse } from "date-fns";
+import { ArrowLeft } from "lucide-react";
+import { ThemeToggle } from "../components/ThemeToggle";
+import { useTheme } from "../hooks/useTheme";
 
 export function EditorPage() {
-  const { date } = useParams<{ date: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const editorRef = useRef<HTMLIFrameElement>(null);
   const { isDark } = useTheme();
-  
-  const parsedDate = date ? parse(date, 'yyyy-MM-dd', new Date()) : new Date();
-  const formattedDate = format(parsedDate, 'MMMM d, yyyy');
-  
+
+  const parsedDate = id ? parse(id, "yyyy-MM-dd", new Date()) : new Date();
+  const formattedDate = format(parsedDate, "MMMM d, yyyy");
+
   const handleBack = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleIframeLoad = () => {
     if (editorRef.current) {
-      editorRef.current.contentWindow?.postMessage({
-        type: 'SET_THEME',
-        theme: isDark ? 'dark' : 'light'
-      }, '*');
+      editorRef.current.contentWindow?.postMessage(
+        {
+          type: "SET_THEME",
+          theme: isDark ? "dark" : "light",
+        },
+        "*"
+      );
     }
   };
 
@@ -45,7 +48,7 @@ export function EditorPage() {
             <ThemeToggle />
           </div>
         </div>
-        
+
         <div className="flex-1">
           <iframe
             ref={editorRef}

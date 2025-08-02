@@ -1,14 +1,14 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from './App';
-import { EditorPage } from './pages/EditorPage';
+import { createBrowserRouter } from "react-router-dom";
+import App from "./App";
+import { EditorPage } from "./pages/EditorPage";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
   },
   {
-    path: '/notes/:date',
+    path: "/notes/:id",
     element: <EditorPage />,
   },
 ]);
