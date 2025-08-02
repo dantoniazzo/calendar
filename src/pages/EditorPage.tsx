@@ -4,14 +4,18 @@ import { format, parse } from "date-fns";
 import { ArrowLeft } from "lucide-react";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { useTheme } from "../hooks/useTheme";
+import { useViewer } from "entities/viewer";
 
 export function EditorPage() {
-  const { id } = useParams<{ id: string }>();
+  const params = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { viewer } = useViewer();
+  console.log("Viewer:", viewer);
   const editorRef = useRef<HTMLIFrameElement>(null);
   const { isDark } = useTheme();
-
-  const parsedDate = id ? parse(id, "yyyy-MM-dd", new Date()) : new Date();
+  const parsedDate = params.id
+    ? parse(params.id, "yyyy-MM-dd", new Date())
+    : new Date();
   const formattedDate = format(parsedDate, "MMMM d, yyyy");
 
   const handleBack = () => {
@@ -52,7 +56,7 @@ export function EditorPage() {
         <div className="flex-1">
           <iframe
             ref={editorRef}
-            src="https://simple-editor-gamma.vercel.app"
+            src={`http://localhost:8080/${params.id}-${viewer?.id}`} /* "https://simple-editor-gamma.vercel.app" */
             className="w-full h-full border-0"
             title="Editor"
             onLoad={handleIframeLoad}
