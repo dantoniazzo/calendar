@@ -43,7 +43,7 @@ export function Calendar({
               className={`flex flex-col items-center justify-center p-1 sm:p-2 border dark:border-gray-700 rounded-lg cursor-pointer transition-colors
                 ${
                   isCurrentDay
-                    ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+                    ? "bg-blue-50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-900"
                     : "hover:bg-gray-50 dark:hover:bg-gray-700"
                 }
                 dark:bg-gray-800 dark:text-gray-200
@@ -115,7 +115,7 @@ export function Calendar({
                   }
                   ${
                     isCurrentDay
-                      ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+                      ? "bg-blue-50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-900"
                       : "hover:bg-gray-50 dark:hover:bg-gray-700"
                   }
                 `}
